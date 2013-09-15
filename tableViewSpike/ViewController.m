@@ -52,6 +52,9 @@ numberOfRowsInSection:(NSInteger)section{
     [super setEditing:editing animated:animated];
     [self.table setEditing:editing animated:YES];
     
+    NSLog(@"animals : %@", self.animals);
+
+    
     if (editing) { // 現在編集モードです。
         NSLog(@"%@", @"edit mode");
 
@@ -83,6 +86,21 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         [self.table deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // ここは空のままでOKです。
+    }
+}
+
+// 行移動処理
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+    if(fromIndexPath.section == toIndexPath.section) { // 移動元と移動先は同じセクションです。
+        if(self.animals && toIndexPath.row < [self.animals count]) {
+            id item = [self.animals objectAtIndex:fromIndexPath.row]; // 移動対象を保持します。
+            [self.animals removeObject:item]; // 配列から一度消します。
+            [self.animals insertObject:item atIndex:toIndexPath.row]; // 保持しておいた対象を挿入します。
+        }
     }
 }
 
