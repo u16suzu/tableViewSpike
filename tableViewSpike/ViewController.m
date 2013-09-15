@@ -9,7 +9,8 @@
 #import "ViewController.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic, strong) UITableView *table;
+@property UITableView *table;
+@property NSMutableArray *animals;
 @end
 
 @implementation ViewController
@@ -17,21 +18,76 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.table = [[UITableView alloc]initWithFrame:self.view.bounds];
+    // Navigation
+    self.navigationItem.title = @"Table Test";
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
+    // Status bar, Navigation barの高さを抜いたCGRect を生成する.
+    CGFloat barHeight = self.navigationController.navigationBar.frame.size.height;    
+    CGRect tableFrame = CGRectMake(0, 0,
+                                   UIScreen.mainScreen.bounds.size.width,
+                                   UIScreen.mainScreen.applicationFrame.size.height - barHeight);
+    
+    // Table
+    self.table = [[UITableView alloc]initWithFrame:tableFrame];
     self.table.delegate = self;
     self.table.dataSource = self;
     [self.view addSubview:self.table];
-}
-
--(void)layoutSubviews{
     
+    // Data for display
+    self.animals =  @[@"dog", @"cat", @"rat"].mutableCopy;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+-(NSInteger)tableView:(UITableView *)tableView
+numberOfRowsInSection:(NSInteger)section{
+    return self.animals.count;
+}
+
+// Editボタンを押すと毎回実行される.
+-(void)setEditing:(BOOL)editing animated:(BOOL)animated{
+    [super setEditing:editing animated:animated];
+    [self.table setEditing:editing animated:YES];
+    
+    if (editing) { // 現在編集モードです。
+        NSLog(@"%@", @"edit mode");
+
+        UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                      target:self
+                                      action:@selector(addRow:)] ;
+        [self.navigationItem setLeftBarButtonItem:addButton animated:YES]; // 追加ボタンを表示します。
+    } else { // 現在通常モードです。
+        NSLog(@"%@", @"usual mode");
+
+        [self.navigationItem setLeftBarButtonItem:nil animated:YES]; // 追加ボタンを非表示にします。
+    }
+}
+
+// 行追加処理
+-(void)addRow:(id)sender{
+    int rand = random() % self.animals.count;
+    [self.animals addObject:self.animals[rand]];
+    [self.table reloadData];
+}
+
+// 行削除処理
+- (void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self.animals removeObjectAtIndex:indexPath.row]; // 削除ボタンが押された行のデータを配列から削除します。
+        [self.table deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // ここは空のままでOKです。
+    }
+}
+
+-(void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [_table deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -45,7 +101,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     cell.textLabel.textColor = [UIColor purpleColor];
-    cell.textLabel.text = [NSString stringWithFormat:@"cell %d", indexPath.row];
+    cell.textLabel.text = self.animals[indexPath.row];
     
     return cell;
 }
