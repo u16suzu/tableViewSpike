@@ -11,6 +11,8 @@
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 @property UITableView *table;
 @property NSMutableArray *animals;
+@property NSMutableArray *birds;
+@property NSMutableArray *fish;
 @end
 
 @implementation ViewController
@@ -35,16 +37,57 @@
     [self.view addSubview:self.table];
     
     // Data for display
-    self.animals =  @[@"dog", @"cat", @"rat"].mutableCopy;
+    self.animals =  @[@"dog", @"cat", @"rat", @"elephant", @"tiger", @"lion"].mutableCopy;
+    self.birds = @[@"crow", @"swallow", @"sparrow"].mutableCopy;
+    self.fish = @[@"tuna", @"salmon"].mutableCopy;
 }
 
+// Section
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return 3;
+}
+
+// Section Header
+-(NSString *)tableView: (UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    NSString * ret;
+    switch (section) {
+        case 0:
+            ret = @"animals";
+            break;
+        case 1:
+            ret = @"birds";
+            break;
+        case 2:
+            ret = @"fish";            
+            break;
+        default:
+            break;
+    }
+    return ret;
+}
+
+// Section Footer
+-(NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
+    return @"footer";
 }
 
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section{
-    return self.animals.count;
+    switch (section) {
+        case 0:
+            return self.animals.count;
+            break;
+        case 1:
+            return self.birds.count;
+            break;
+        case 2:
+            return self.fish.count;
+            break;
+        default:
+            return 0;
+            break;
+    }
+    return 0;
 }
 
 // Editボタンを押すと毎回実行される.
@@ -53,7 +96,6 @@ numberOfRowsInSection:(NSInteger)section{
     [self.table setEditing:editing animated:YES];
     
     NSLog(@"animals : %@", self.animals);
-
     
     if (editing) { // 現在編集モードです。
         NSLog(@"%@", @"edit mode");
@@ -116,10 +158,25 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier:CellIdentifier];
     }
-    cell.textLabel.textColor = [UIColor purpleColor];
-    cell.textLabel.text = self.animals[indexPath.row];
+    switch (indexPath.section) {
+        case 0:
+            cell.textLabel.textColor = [UIColor purpleColor];
+            cell.textLabel.text = self.animals[indexPath.row];
+            break;
+        case 1:
+            cell.textLabel.textColor = [UIColor purpleColor];
+            cell.textLabel.text = self.birds[indexPath.row];
+            break;
+        case 2:
+            cell.textLabel.textColor = [UIColor purpleColor];
+            cell.textLabel.text = self.fish[indexPath.row];
+            break;
+        default:
+            break;
+    }
     
     return cell;
 }
