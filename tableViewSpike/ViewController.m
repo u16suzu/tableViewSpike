@@ -55,7 +55,6 @@
     val = -99;
     NSAssert((0 <= val) && (val <= 255), @"Value is out of range!");
     
-    
 }
 
 // Section
