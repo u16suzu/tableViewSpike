@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "AnimalManager.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 @property UITableView *table;
@@ -40,6 +41,14 @@
     self.animals =  @[@"dog", @"cat", @"rat", @"elephant", @"tiger", @"lion"].mutableCopy;
     self.birds = @[@"crow", @"swallow", @"sparrow"].mutableCopy;
     self.fish = @[@"tuna", @"salmon"].mutableCopy;
+    
+    // dispatch_onceのspike
+    AnimalManager* am = [AnimalManager sharedManager];
+    AnimalManager* am2 = [AnimalManager sharedManager];
+    NSLog(@"%@", am);
+    NSLog(@"%@", am2);
+
+    
 }
 
 // Section
