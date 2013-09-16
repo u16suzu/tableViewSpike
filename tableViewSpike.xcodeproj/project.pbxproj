@@ -17,6 +17,7 @@
 		6400FDF017E4D6290006EC76 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6400FDEF17E4D6290006EC76 /* Default@2x.png */; };
 		6400FDF217E4D6290006EC76 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6400FDF117E4D6290006EC76 /* Default-568h@2x.png */; };
 		6400FDF517E4D6290006EC76 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6400FDF417E4D6290006EC76 /* ViewController.m */; };
+		6400FE6D17E7473E0006EC76 /* AnimalManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6400FE6C17E7473E0006EC76 /* AnimalManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,8 @@
 		6400FDF117E4D6290006EC76 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		6400FDF317E4D6290006EC76 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		6400FDF417E4D6290006EC76 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		6400FE6B17E7473E0006EC76 /* AnimalManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimalManager.h; sourceTree = "<group>"; };
+		6400FE6C17E7473E0006EC76 /* AnimalManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimalManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,8 +86,8 @@
 			children = (
 				6400FDEA17E4D6290006EC76 /* AppDelegate.h */,
 				6400FDEB17E4D6290006EC76 /* AppDelegate.m */,
-				6400FDF317E4D6290006EC76 /* ViewController.h */,
-				6400FDF417E4D6290006EC76 /* ViewController.m */,
+				6400FE6F17E748190006EC76 /* ViewController */,
+				6400FE6E17E747430006EC76 /* Model */,
 				6400FDE217E4D6290006EC76 /* Supporting Files */,
 			);
 			path = tableViewSpike;
@@ -102,6 +105,24 @@
 				6400FDF117E4D6290006EC76 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6400FE6E17E747430006EC76 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6400FE6B17E7473E0006EC76 /* AnimalManager.h */,
+				6400FE6C17E7473E0006EC76 /* AnimalManager.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		6400FE6F17E748190006EC76 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6400FDF317E4D6290006EC76 /* ViewController.h */,
+				6400FDF417E4D6290006EC76 /* ViewController.m */,
+			);
+			name = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,6 +193,7 @@
 				6400FDE817E4D6290006EC76 /* main.m in Sources */,
 				6400FDEC17E4D6290006EC76 /* AppDelegate.m in Sources */,
 				6400FDF517E4D6290006EC76 /* ViewController.m in Sources */,
+				6400FE6D17E7473E0006EC76 /* AnimalManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
