@@ -50,10 +50,10 @@
     NSLog(@"%@", am2);
 
     // spike of NSAssert
-    int val = 1;
-    NSAssert((0 <= val) && (val <= 255), @"Value is out of range!");
-    val = -99;
-    NSAssert((0 <= val) && (val <= 255), @"Value is out of range!");
+//    int val = 1;
+//    NSAssert((0 <= val) && (val <= 255), @"Value is out of range!");
+//    val = -99;
+//    NSAssert((0 <= val) && (val <= 255), @"Value is out of range!");
     
 }
 
